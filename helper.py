@@ -29,8 +29,8 @@ class LoggingFormatter(logging.Formatter):
 def color_logging(level: int) -> logging.StreamHandler:
     """See https://docs.python.org/3/howto/logging-cookbook.html#logging-cookbook"""
 
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    _logger = logging.getLogger()
+    _logger.setLevel(logging.DEBUG)
     console = logging.StreamHandler()
     console.setLevel(level)
     # set a format which is simpler for console use
