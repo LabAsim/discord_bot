@@ -121,12 +121,11 @@ async def add(ctx, left: int, right: int):
 
 
 @bot.command()
-async def roll(ctx, dice: str):
+async def roll(ctx, dice: str) -> None:
     """Rolls a die in NdN format."""
     try:
         rolls, limit = map(int, dice.split('d'))
     except Exception:
-        await ctx.send('Format has to be in NdN!')
         return
 
     result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
@@ -162,7 +161,7 @@ async def cool(ctx):
         await ctx.send(f'No, {ctx.subcommand_passed} is not cool')
 
 
-@cool.command()  # name='bot')
+@cool.command(name='bot')
 async def _bot(ctx):
     """Is the bot cool?"""
     await ctx.send('Yes, the bot is cool.')
