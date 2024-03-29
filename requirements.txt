@@ -7,3 +7,5 @@ idna==3.6
 multidict==6.0.5
 yarl==1.9.4
 colorama
+requests
+feedparser
