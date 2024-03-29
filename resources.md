@@ -9,6 +9,7 @@ Start by taking a look at **[our own Github repo](<https://github.com/transatlan
 ### Online Courses
 - [Datacamp](<https://www.datacamp.com/>)
 - [HarvardX: Data Science: R Basics](<https://www.edx.org/learn/r-programming/harvard-university-data-science-r-basics>)
+- [UCLA seminars](<https://discord.com/channels/1193942491943145493/1222583086622052453/1222654932604157962>)
 ## Causal Inference
 - [HarvardX: Causal Diagrams: Draw your assumptions before your conclusions](<https://www.edx.org/learn/data-analysis/harvard-university-causal-diagrams-draw-your-assumptions-before-your-conclusions>)
 - [Causal Inference: What If](<https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/>)
