@@ -2,3 +2,4 @@ venv
 .idea
 saved_tokens.py
 __pycache__
+*example*
