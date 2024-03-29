@@ -7,9 +7,9 @@ from typing import List
 
 import colorama
 import discord
+import requests
 from discord import Message
-from discord.ext import commands
-
+from discord.ext import commands, tasks
 
 logger = logging.getLogger(__name__)
 intents = discord.Intents.default()
@@ -21,13 +21,79 @@ description = '''An example bot to showcase the discord.ext.commands extension
 module.
 
 There are a number of utility commands being showcased here.'''
-bot = commands.Bot(command_prefix='?', description=description, intents=intents)
+bot = commands.Bot(command_prefix='?', description=description, intents=intents, help_command=None)
+
+CHANNEL_IDS = [1222950414731841670, ]  # 1222583086622052453
 
 
 @bot.event
-async def on_ready():
-    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
-    print('------')
+async def on_ready() -> None:
+    """The function which is called upon startup. Do not change the name!"""
+    logger.info(f'Logged in as {bot.user} (ID: {bot.user.id})')
+    # logger.info('------'*10)
+    # Start polling
+    check_file.start()
+
+    text_channel_list = []
+    for guild in bot.guilds:
+        for channel in guild.text_channels:
+            text_channel_list.append(channel)
+    logger.info(f"{text_channel_list=}")
+
+
+@tasks.loop(seconds=60)
+async def check_file() -> None:
+    """
+    Checks if the file is updated on GitHub
+    See: https://discordpy.readthedocs.io/en/stable/ext/tasks/index.html
+    """
+    logger.info(f"Checking Github..")
+    for _id in CHANNEL_IDS:
+        channel = bot.get_channel(_id)
+        await edit_pinned_message(channel=channel)
+
+
+async def edit_pinned_message(channel: discord.abc.Messageable) -> None:
+    """
+     Edits the pinned message of channel passed as an argument.
+     It compares the msg against the md file on GitHub
+     """
+    pins: List[Message] = await channel.pins()  # a list of all the channel's pins
+    logger.debug(f"{pins=}")
+    # await ctx.send(pins)  # sends all the information in the channel's first pin
+    logger.debug(f"{pins[0]=}")
+    logger.debug(f"{pins[0].content=}")
+    # await ctx.send(pins[0].content)  # sends the content of the message.
+    logger.debug(f"{pins[0].id=}")
+    # msg = await discord.Message()
+    msg = await channel.fetch_message(int(pins[0].id))
+    logger.debug(f"{msg=}")
+
+    resource_md_link = "https://raw.githubusercontent.com/LabAsim/discord_bot/master/resources.md"
+    resource_md = requests.get(url=resource_md_link)
+    text = resource_md.text
+    logger.debug(f"{text=}")
+    if text != msg.content:
+        msg = await msg.edit(content=text)
+        logger.debug(f"new {msg=}")
+        logger.info("File updated!")
+    else:
+        logger.info(f"File is up-to-date")
+
+
+@bot.command()
+async def edit_pin(ctx: discord.ext.commands.Context) -> None:
+    """
+    Note that only the user can edit their message, no one else, including a bot.
+    See: https://stackoverflow.com/a/77166679
+    """
+    current_channel = ctx.channel
+    current_channel_name = ctx.channel.name
+    if current_channel_name != "resources":
+        logger.debug(f"Not a resources channel")
+        return None
+    await edit_pinned_message(current_channel)
+
 
 
 @bot.command()
@@ -94,26 +160,3 @@ async def edit(message):
 async def on_message_edit(before, after):
     msg = f'**{before.author}** edited their message:\n{before.content} -> {after.content}'
     await before.channel.send(msg)
-
-
-@bot.command()
-async def edit_pin(ctx: discord.ext.commands.Context):
-    """
-    Note that only the user can edit their message, no one else, including a bot.
-    See: https://stackoverflow.com/a/77166679
-    """
-
-    pins: List[Message] = await ctx.channel.pins()  # a list of all the channel's pins
-    logger.debug(f"{pins=}")
-    # await ctx.send(pins)  # sends all the information in the channel's first pin
-    logger.debug(f"{pins[0]=}")
-    logger.debug(f"{pins[0].content=}")
-    # await ctx.send(pins[0].content)  # sends the content of the message.
-    logger.debug(f"{pins[0].id}")
-    # msg = await discord.Message()
-    msg = await ctx.fetch_message(int(pins[0].id))
-    logger.debug(f"{msg=}")
-    msg = await msg.edit(content=msg.content + " test")
-    logger.debug(f"{msg=}")
-    # An error will occur if there is no message content
-
