@@ -13,8 +13,8 @@ Start by taking a look at **[our own Github repo](<https://github.com/transatlan
 ## Causal Inference
 - [HarvardX: Causal Diagrams: Draw your assumptions before your conclusions](<https://www.edx.org/learn/data-analysis/harvard-university-causal-diagrams-draw-your-assumptions-before-your-conclusions>)
 - [Causal Inference: What If](<https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/>)
-- [Direct Direct Acyclic Graph (DAG)](https://www.r4epi.com/introduction-to-directed-acyclic-graphs)
-  - [Types of DAG - Hernan's Book](https://sgfin.github.io/2019/06/19/Causal-Inference-Book-All-DAGs/)
+- [Direct Direct Acyclic Graph (DAG)](<https://www.r4epi.com/introduction-to-directed-acyclic-graphs>)
+  - [Types of DAG - Hernan's Book](<https://sgfin.github.io/2019/06/19/Causal-Inference-Book-All-DAGs/>)
 
     
 The list will be updated based on your recommendations!
