@@ -13,4 +13,4 @@ Start by taking a look at **[our own Github repo](<https://github.com/transatlan
 - [HarvardX: Causal Diagrams: Draw your assumptions before your conclusions](<https://www.edx.org/learn/data-analysis/harvard-university-causal-diagrams-draw-your-assumptions-before-your-conclusions>)
 - [Causal Inference: What If](<https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/>)
 
-The list will be updated based on your reccomendations!
+The list will be updated based on your recommendations!
