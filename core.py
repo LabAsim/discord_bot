@@ -23,7 +23,8 @@ module.
 There are a number of utility commands being showcased here.'''
 bot = commands.Bot(command_prefix='?', description=description, intents=intents, help_command=None)
 
-CHANNEL_IDS = [1222950414731841670, ]  # 1222583086622052453
+CHANNEL_IDS = [1222950414731841670, 1222583086622052453]
+RESOURCES_MD_LINK = "https://raw.githubusercontent.com/LabAsim/discord_bot/master/resources.md"
 
 
 @bot.event
@@ -50,6 +51,21 @@ async def check_file() -> None:
     logger.info(f"Checking Github..")
     for _id in CHANNEL_IDS:
         channel = bot.get_channel(_id)
+        await check_if_pinned(channel=channel)
+
+
+async def check_if_pinned(channel: discord.abc.Messageable) -> None:
+    """Checks if there is a pinned message on the server"""
+    pins: List[Message] = await channel.pins()
+    # If there is no pinned message in this channel
+    if len(pins) == 0:
+        logger.debug("No pinned messages")
+        resource_md = requests.get(url=RESOURCES_MD_LINK)
+        text = resource_md.text
+        msg = await channel.send(content=text)
+        await msg.pin()
+        logger.debug(f"Message pinned")
+    else:
         await edit_pinned_message(channel=channel)
 
 
@@ -61,22 +77,25 @@ async def edit_pinned_message(channel: discord.abc.Messageable) -> None:
     pins: List[Message] = await channel.pins()  # a list of all the channel's pins
     logger.debug(f"{pins=}")
     # await ctx.send(pins)  # sends all the information in the channel's first pin
-    logger.debug(f"{pins[0]=}")
-    logger.debug(f"{pins[0].content=}")
+    logger.debug(f"{pins[-1]=}")
+    logger.debug(f"{pins[-1].content=}")
     # await ctx.send(pins[0].content)  # sends the content of the message.
-    logger.debug(f"{pins[0].id=}")
+    logger.debug(f"{pins[-1].id=}")
     # msg = await discord.Message()
-    msg = await channel.fetch_message(int(pins[0].id))
+    msg = await channel.fetch_message(int(pins[-1].id))
     logger.debug(f"{msg=}")
 
-    resource_md_link = "https://raw.githubusercontent.com/LabAsim/discord_bot/master/resources.md"
-    resource_md = requests.get(url=resource_md_link)
+    resource_md = requests.get(url=RESOURCES_MD_LINK)
     text = resource_md.text
     logger.debug(f"{text=}")
     if text != msg.content:
-        msg = await msg.edit(content=text)
-        logger.debug(f"new {msg=}")
-        logger.info("File updated!")
+        try:
+            msg = await msg.edit(content=text)
+            logger.debug(f"new {msg=}")
+            logger.info("File updated!")
+        except discord.errors.Forbidden as err:
+            logger.exception(err)
+
     else:
         logger.info(f"File is up-to-date")
 
@@ -95,7 +114,6 @@ async def edit_pin(ctx: discord.ext.commands.Context) -> None:
     await edit_pinned_message(current_channel)
 
 
-
 @bot.command()
 async def add(ctx, left: int, right: int):
     """Adds two numbers together."""
@@ -104,7 +122,7 @@ async def add(ctx, left: int, right: int):
 
 @bot.command()
 async def roll(ctx, dice: str):
-    """Rolls a dice in NdN format."""
+    """Rolls a die in NdN format."""
     try:
         rolls, limit = map(int, dice.split('d'))
     except Exception:
