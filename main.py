@@ -9,16 +9,9 @@ from saved_tokens import BOT_TOKEN
 
 logger = logging.getLogger(__name__)
 
+if __name__ == "__main__":
+    logging.getLogger("urllib3.connectionpool").setLevel(logging.WARNING)
 
-# class MyClient(discord.Client):
-#     async def on_ready(self):
-#         print(f'Logged on as {self.user}!')
-#
-#     async def on_message(self, message):
-#         print(f'Message from {message.author}: {message.content}')
-
-# client = MyClient(intents=intents)
-# client.run(token)
 
 def main():
     level = logging.DEBUG
