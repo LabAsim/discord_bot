@@ -3,3 +3,4 @@ venv
 saved_tokens.py
 __pycache__
 *example*
+.Rproj.user
