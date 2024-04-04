@@ -18,3 +18,5 @@ Start by taking a look at **[our own Github repo](<https://github.com/transatlan
 
     
 The list will be updated based on your recommendations!
+
+You can see the source code [here](<https://github.com/LabAsim/discord_bot>)!
