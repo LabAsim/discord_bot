@@ -13,7 +13,7 @@ if __name__ == "__main__":
     logging.getLogger("urllib3.connectionpool").setLevel(logging.WARNING)
 
 
-def main():
+def main() -> None:
     level = logging.DEBUG
     console = color_logging(level=level)
     logging.basicConfig(

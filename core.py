@@ -115,7 +115,7 @@ async def edit_pin(ctx: discord.ext.commands.Context) -> None:
 
 
 @bot.command()
-async def add(ctx, left: int, right: int):
+async def add(ctx, left: int, right: int) -> None:
     """Adds two numbers together."""
     await ctx.send(left + right)
 
@@ -133,26 +133,26 @@ async def roll(ctx, dice: str) -> None:
 
 
 @bot.command(description='For when you wanna settle the score some other way')
-async def choose(ctx, *choices: str):
+async def choose(ctx, *choices: str) -> None:
     """Chooses between multiple choices."""
     await ctx.send(random.choice(choices))
 
 
 @bot.command()
-async def repeat(ctx, times: int, content='repeating...'):
+async def repeat(ctx, times: int, content='repeating...') -> None:
     """Repeats a message multiple times."""
     for i in range(times):
         await ctx.send(content)
 
 
 @bot.command()
-async def joined(ctx, member: discord.Member):
+async def joined(ctx, member: discord.Member) -> None:
     """Says when a member joined."""
     await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
 
 
 @bot.group()
-async def cool(ctx):
+async def cool(ctx) -> None:
     """Says if a user is cool.
 
     In reality this just checks if a subcommand is being invoked.
@@ -162,18 +162,18 @@ async def cool(ctx):
 
 
 @cool.command(name='bot')
-async def _bot(ctx):
+async def _bot(ctx) -> None:
     """Is the bot cool?"""
     await ctx.send('Yes, the bot is cool.')
 
 
 @bot.command()
-async def edit(message):
+async def edit(message) -> None:
     msg = await message.channel.send('10')
     await asyncio.sleep(1.0)
     await msg.edit(content='40')
 
 
-async def on_message_edit(before, after):
+async def on_message_edit(before, after) -> None:
     msg = f'**{before.author}** edited their message:\n{before.content} -> {after.content}'
     await before.channel.send(msg)
