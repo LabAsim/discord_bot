@@ -1,3 +1,4 @@
+import argparse
 import copy
 import logging
 import colorama
@@ -38,3 +39,24 @@ def color_logging(level: int) -> logging.StreamHandler:
     # tell the handler to use this format
     console.setFormatter(formatter)
     return console
+
+
+def parse_arguments() -> argparse.ArgumentParser.parse_args:
+    """
+    Parser for commandline arguments.
+    :return: my_parser.parse_args()
+
+    See here how action "append" works
+    https://docs.python.org/3.11/library/argparse.html#action
+    """
+    my_parser = argparse.ArgumentParser()
+    my_parser.add_argument(
+        "--channels",
+        type=int,
+        action="append",
+        const=True,
+        nargs="?",
+        required=True,
+        default=[],
+    )
+    return my_parser.parse_args()
