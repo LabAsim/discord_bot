@@ -1,15 +1,14 @@
-import logging
-from typing import List
+
 import asyncio
 import random
 import logging
 from typing import List
 
-import colorama
 import discord
 import requests
 from discord import Message
 from discord.ext import commands, tasks
+from constants import CHANNEL_IDS
 
 logger = logging.getLogger(__name__)
 intents = discord.Intents.default()
@@ -23,7 +22,6 @@ module.
 There are a number of utility commands being showcased here.'''
 bot = commands.Bot(command_prefix='?', description=description, intents=intents, help_command=None)
 
-CHANNEL_IDS = [1222950414731841670, 1222583086622052453]
 RESOURCES_MD_LINK = "https://raw.githubusercontent.com/LabAsim/discord_bot/master/resources.md"
 
 
