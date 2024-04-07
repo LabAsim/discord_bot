@@ -2,6 +2,13 @@
 import logging
 
 import colorama
+from helper import parse_arguments
+import constants
+
+if __name__ == "__main__":
+    args = parse_arguments()
+    constants.CHANNEL_IDS = args.channels
+
 
 from core import bot
 from helper import color_logging
