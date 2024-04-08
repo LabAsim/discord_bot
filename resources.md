@@ -17,9 +17,9 @@ Start by taking a look at **[our own Github repo](<https://github.com/transatlan
 - [Direct Direct Acyclic Graph (DAG)](<https://www.r4epi.com/introduction-to-directed-acyclic-graphs>)
   - [Types of DAGs - Hernan's Book](<https://sgfin.github.io/2019/06/19/Causal-Inference-Book-All-DAGs/>)
 
-### Descriptive statistics
+## Descriptive statistics
 
-#### Create your own Table 1
+### Create your own Table 1
 - [Janitor package](<https://epirhandbook.com/en/descriptive-tables.html#tbl_janitor>)
 
 
