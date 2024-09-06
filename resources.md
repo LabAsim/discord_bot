@@ -20,7 +20,7 @@ Start by taking a look at **[our own Github repo](<https://github.com/transatlan
 ## Descriptive statistics
 
 ### Create your own Table 1
-- [Janitor package](<https://epirhandbook.com/en/descriptive-tables.html#tbl_janitor>)
+- [Descriptive tables](<https://epirhandbook.com/en/new_pages/tables_descriptive.html>)
 
 
 The list will be updated based on your recommendations!
